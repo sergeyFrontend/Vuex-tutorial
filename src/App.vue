@@ -1,13 +1,33 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+    <h1>Todos</h1>
+    <h3>Completed:{{ completedTodos }}:</h3>
+    <h3>Pending: {{ pendingTodos }}</h3>
+
+    <TodosList />
+    <TodoForm />
   </div>
 </template>
 
+<script>
+import { mapGetters } from "vuex";
+
+import TodosList from "./components/TodosList.vue";
+import TodoForm from "./components/TodoForm.vue";
+
+export default {
+  components: {
+    TodosList,
+    TodoForm,
+  },
+  computed: {
+    ...mapGetters({
+      completedTodos: "completedTodos",
+      pendingTodos: "pendingTodos",
+    }),
+  },
+};
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -15,18 +35,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
